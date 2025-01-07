@@ -8,8 +8,8 @@
     "db:push": "prisma db push --skip-generate",
     "dev": "tsup src/* --watch",
     "lint": "eslint . --max-warnings 0",
-    "prebuild": "npm run generate",
-    "predev": "npm run generate",
+    "prebuild": "pnpm db:generate",
+    "predev": "pnpm db:generate",
     "studio": "prisma studio"
   },
   "dependencies": {

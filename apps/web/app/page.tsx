@@ -1,12 +1,14 @@
-import { Button } from "@workspace/ui/components/button";
+import { BlurFade } from "@workspace/ui/components/blur-fade";
+import { SiteHeader } from "@/components/home/SiteHeader";
+import { HeroSection } from "@/components/home/HeroSection";
 
 export default function Page() {
   return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
-        <Button size="sm">Button</Button>
-      </div>
+    <div className="w-screen max-w-screen-2xl min-h-svh mx-auto border">
+      <SiteHeader />
+      <BlurFade inView delay={0.10}>
+        <HeroSection />
+      </BlurFade>
     </div>
   );
 }
