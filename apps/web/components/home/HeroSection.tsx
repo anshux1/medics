@@ -5,7 +5,7 @@ import { cn } from "@workspace/ui/lib/utils"
 
 export function HeroSection() {
   return (
-    <div className="h-screen">
+    <div className="h-[calc(100vh-4rem)]">
       <div className="absolute inset-0 " />
       <div className="relative container flex flex-col items-center justify-center space-y-10 py-32 text-center">
         <div className="space-y-6 z-10">
@@ -29,7 +29,7 @@ export function HeroSection() {
             </Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href="/demo">
+            <Link href="/dashboard">
               See Exxam.io in action
             </Link>
           </Button>
@@ -42,7 +42,7 @@ export function HeroSection() {
         width={50}
         height={50}
         squares={[80, 80]}
-        squaresClassName="hover:fill-blue-500"
+        squaresClassName="hover:fill-neutral-300 dark:hover:fill-neutral-700"
       />
     </div>
   )
