@@ -1,0 +1,20 @@
+echo "Testing, linting, and building the project before commiting!"
+
+turbo format || (
+  echo "Prettier check failed! ❌, Please review the formatting issues above. Run pnpm format:fix to automatically fix them";
+  false;
+)
+
+turbo format || (
+  echo "Lint check failed! ❌, Please review the linting issues above.";
+  false;
+)
+
+echo 'Alright! Code looks good.. Trying to build now.'
+
+turbo build || (
+  echo 'build failed ❌ please review the errors above and fix them before committing.';
+  false;
+)
+
+echo 'Everything passes, committing this now. ✅'

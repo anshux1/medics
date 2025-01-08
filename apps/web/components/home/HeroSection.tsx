@@ -1,12 +1,14 @@
 import Link from "next/link"
 import { Button } from "@workspace/ui/components/button"
+import { InteractiveGridPattern } from "@workspace/ui/components/interactive-grid-pattern"
+import { cn } from "@workspace/ui/lib/utils"
 
 export function HeroSection() {
   return (
-    <div className="relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-indigo-50/80 to-purple-50/90" />
+    <div className="h-screen">
+      <div className="absolute inset-0 " />
       <div className="relative container flex flex-col items-center justify-center space-y-10 py-32 text-center">
-        <div className="space-y-6">
+        <div className="space-y-6 z-10">
           <div className="mx-auto">
             <span className="inline-block text-sm font-medium text-primary">
               PRODUCT & MANAGEMENT EXAM TOOL
@@ -20,7 +22,7 @@ export function HeroSection() {
             and user-friendliness, making it ideal for the digital era.
           </p>
         </div>
-        <div className="flex flex-col gap-4 min-[400px]:flex-row justify-center">
+        <div className="flex flex-col gap-4 min-[400px]:flex-row justify-center z-10">
           <Button size="lg" asChild>
             <Link href="/signup">
               Sign up for free
@@ -33,6 +35,15 @@ export function HeroSection() {
           </Button>
         </div>
       </div>
+      <InteractiveGridPattern
+        className={cn(
+          "[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]",
+        )}
+        width={50}
+        height={50}
+        squares={[80, 80]}
+        squaresClassName="hover:fill-blue-500"
+      />
     </div>
   )
 }

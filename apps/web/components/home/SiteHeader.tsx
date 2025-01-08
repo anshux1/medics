@@ -10,6 +10,7 @@ import {
   NavigationMenuTrigger,
 } from "@workspace/ui/components/navigation-menu"
 import { cn } from "@workspace/ui/lib/utils"
+import ThemeToggle from "../ThemeToggle"
 
 export function SiteHeader() {
   return (
@@ -21,6 +22,7 @@ export function SiteHeader() {
         </Link>
       </div>
       <div className="flex items-center space-x-6">
+        <ThemeToggle />
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
