@@ -1,7 +1,10 @@
 {
-  "name": "@repo/db",
+  "name": "@workspace/database",
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx src/seed.ts",
@@ -17,6 +20,7 @@
     "@prisma/client": "6.1.0"
   },
   "devDependencies": {
+    "@workspace/typescript-config": "workspace:*",
     "eslint": "^9.15.0",
     "prisma": "^6.1.0",
     "tsup": "^8.3.5",
