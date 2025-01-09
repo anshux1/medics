@@ -3,9 +3,10 @@ import { Button } from "@workspace/ui/components/button";
 import ThemeToggle from "../ThemeToggle";
 import { auth, signIn, signOut } from "@/lib/auth";
 
+import CheckOnboarding from "@/components/check-onboarding";
+
 export async function SiteHeader() {
   const session = await auth();
-  console.log(session);
   return (
     <header className="container sticky top-0 backdrop-blur-xl z-40 flex h-16 items-center justify-between py-8 px-6">
       <div className="flex items-center space-x-2">
@@ -18,6 +19,7 @@ export async function SiteHeader() {
       </div>
       <div className="flex items-center space-x-6">
         <ThemeToggle />
+        <CheckOnboarding />
         {session ? (
           <form
             action={async () => {
@@ -31,7 +33,7 @@ export async function SiteHeader() {
           <form
             action={async () => {
               "use server";
-              await signIn("google", {});
+              await signIn("google");
             }}
           >
             <Button variant="outline">Sign in</Button>
