@@ -1,6 +1,8 @@
 "use client";
-import { cn } from "@workspace/ui/lib/utils";
+
 import React, { useState } from "react";
+
+import { cn } from "@workspace/ui/lib/utils";
 
 /**
  * InteractiveGridPattern is a component that renders a grid pattern with interactive squares.
@@ -57,7 +59,7 @@ export function InteractiveGridPattern({
             width={width}
             height={height}
             className={cn(
-              "stroke-gray-300/30 dark:stroke-zinc-900/40 transition-all duration-100 ease-in-out [&:not(:hover)]:duration-1000",
+              "stroke-gray-300/30 transition-all duration-100 ease-in-out dark:stroke-zinc-900/40 [&:not(:hover)]:duration-1000",
               hoveredSquare === index ? "fill-gray-300/30" : "fill-transparent",
               squaresClassName,
             )}

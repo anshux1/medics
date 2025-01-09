@@ -1,8 +1,9 @@
 "use client";
 
-import { Toggle } from "@workspace/ui/components/toggle";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+
+import { Toggle } from "@workspace/ui/components/toggle";
 
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme();
@@ -11,7 +12,7 @@ export default function ThemeToggle() {
     <div>
       <Toggle
         variant="outline"
-        className="group rounded-full size-9 data-[state=on]:bg-transparent data-[state=on]:hover:bg-muted"
+        className="data-[state=on]:hover:bg-muted group size-9 rounded-full data-[state=on]:bg-transparent"
         pressed={theme === "light"}
         onPressedChange={() =>
           setTheme((prev) => (prev === "dark" ? "light" : "dark"))

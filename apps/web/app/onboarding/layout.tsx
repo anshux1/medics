@@ -1,5 +1,6 @@
-import { SiteHeader } from "@/components/home/SiteHeader";
 import { ReactNode } from "react";
+
+import { SiteHeader } from "@/components/home/SiteHeader";
 
 export default function layout({ children }: { children: ReactNode }) {
   return (

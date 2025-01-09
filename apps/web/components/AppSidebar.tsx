@@ -1,9 +1,11 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { SidebarNavItem } from "@/types/sidebar";
 import { type SidebarConfig } from "@/config/AppSidebar";
 import { cn } from "@workspace/ui/lib/utils";
-import { SidebarNavItem } from "@/types/sidebar";
 
 export function SideBar({ config }: { config: SidebarConfig }) {
   const pathname = usePathname();
@@ -11,7 +13,7 @@ export function SideBar({ config }: { config: SidebarConfig }) {
   console.log(items);
 
   return items.length ? (
-    <div className="flex flex-col gap-3 top-0">
+    <div className="top-0 flex flex-col gap-3">
       {items.map((item, index) => (
         <div key={index} className="flex flex-col gap-1">
           <h4 className="rounded-md px-2 py-1 text-sm font-semibold">
@@ -34,17 +36,17 @@ const SideBarItems = ({
   pathname: string;
 }) => {
   return items.length ? (
-    <div className="grid ml-2 grid-flow-row auto-rows-max gap-0.5 text-sm">
+    <div className="ml-2 grid grid-flow-row auto-rows-max gap-0.5 text-sm">
       {items.map((item, index) =>
         item.href && !item.disabled ? (
           <Link
             key={index}
             href={item.href}
             className={cn(
-              "group transition-all tracking-wide duration-100 flex h-8 w-full items-center rounded-r-lg px-3 font-normal text-foreground/80 underline-offset-2 hover:bg-accent hover:text-accent-foreground",
+              "text-foreground/80 hover:bg-accent hover:text-accent-foreground group flex h-8 w-full items-center rounded-r-lg px-3 font-normal tracking-wide underline-offset-2 transition-all duration-100",
               item.disabled && "cursor-not-allowed opacity-60",
               pathname === item.href &&
-                "bg-accent border-l-2 border-black dark:border-white/80 font-medium text-accent-foreground",
+                "bg-accent text-accent-foreground border-l-2 border-black font-medium dark:border-white/80",
             )}
           >
             {item.title}
@@ -53,7 +55,7 @@ const SideBarItems = ({
           <span
             key={index}
             className={cn(
-              "flex w-full cursor-not-allowed items-center rounded-md p-2 text-muted-foreground hover:underline",
+              "text-muted-foreground flex w-full cursor-not-allowed items-center rounded-md p-2 hover:underline",
               item.disabled && "cursor-not-allowed opacity-60",
             )}
           >

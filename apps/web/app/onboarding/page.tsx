@@ -1,17 +1,19 @@
 "use client";
-import { Button } from "@workspace/ui/components/button";
-import { Label } from "@workspace/ui/components/label";
+
+import { useId, useState } from "react";
+import Image from "next/image";
+
+import { OnBoardingComfig } from "@/config/OnBoarding";
 import { BlurOut } from "@workspace/ui/components/blur-out";
-import { WordFadeIn } from "@workspace/ui/components/word-fade-in";
+import { Button } from "@workspace/ui/components/button";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
 import {
   RadioGroup,
   RadioGroupItem,
 } from "@workspace/ui/components/radio-group";
-import Image from "next/image";
-import { useId, useState } from "react";
-import { Input } from "@workspace/ui/components/input";
 import { Textarea } from "@workspace/ui/components/textarea";
-import { OnBoardingComfig } from "@/config/OnBoarding";
+import { WordFadeIn } from "@workspace/ui/components/word-fade-in";
 
 export default function Component() {
   const [step, setStep] = useState(1);
@@ -42,23 +44,23 @@ export default function Component() {
             ? OnBoardingComfig.step1.heading
             : OnBoardingComfig.step2.heading
         }
-        className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-start"
+        className="scroll-m-20 text-start text-4xl font-extrabold tracking-tight lg:text-5xl"
       />
-      <h3 className="leading-7 w-3/5 [&:not(:first-child)]:mt-6 opacity-80">
+      <h3 className="w-3/5 leading-7 opacity-80 [&:not(:first-child)]:mt-6">
         {step === 1
           ? OnBoardingComfig.step1.description
           : OnBoardingComfig.step2.description}
       </h3>
       <BlurOut animate={animateSelectCard}>
         <RadioGroup
-          className={`gap-2 ${step === 1 ? "flex" : "hidden"} w-4/5 my-10`}
+          className={`gap-2 ${step === 1 ? "flex" : "hidden"} my-10 w-4/5`}
           defaultValue={selected}
           onValueChange={setSelected}
         >
           {OnBoardingComfig.step1.items.map((item, index) => (
             <div
               key={index}
-              className="relative flex  w-full items-start gap-2 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+              className="border-input has-[[data-state=checked]]:border-ring relative flex w-full items-start gap-2 rounded-lg border p-4 shadow-sm shadow-black/5"
             >
               <RadioGroupItem
                 value={item.value}
@@ -78,7 +80,7 @@ export default function Component() {
                   <Label htmlFor={`${item.value}-1`}>{item.label}</Label>
                   <p
                     id={`${id}-1-description`}
-                    className="text-xs tracking-wide text-muted-foreground"
+                    className="text-muted-foreground text-xs tracking-wide"
                   >
                     {item.description}
                   </p>
@@ -90,7 +92,7 @@ export default function Component() {
       </BlurOut>
       <BlurOut animate={animateForm}>
         <div
-          className={`${step === 1 ? "hidden" : "block"} max-w-xl space-y-4 my-10`}
+          className={`${step === 1 ? "hidden" : "block"} my-10 max-w-xl space-y-4`}
         >
           <div className="grid gap-2">
             <Label htmlFor="name">Name</Label>

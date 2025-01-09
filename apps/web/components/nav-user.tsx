@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   BadgeCheck,
   Bell,
@@ -6,6 +7,8 @@ import {
   LogOut,
   Sparkles,
 } from "lucide-react";
+
+import { auth, signOut } from "@/lib/auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,8 +18,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import Image from "next/image";
-import { auth, signOut } from "@/lib/auth";
 
 export async function NavUser() {
   const user = (await auth())?.user;
@@ -25,21 +26,21 @@ export async function NavUser() {
   }
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="m-2 w-11/12 rounded-md hover:bg-accent items-center flex px-3 py-3 gap-3">
-        <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+      <DropdownMenuTrigger className="hover:bg-accent m-2 flex w-11/12 items-center gap-3 rounded-md px-3 py-3">
+        <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
           <Image
             src={user.image as string}
             width={50}
             height={50}
             alt="logo"
-            className="rounded-full size-8 object-cover"
+            className="size-8 rounded-full object-cover"
           />
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="truncate font-semibold">{user.name}</span>
           <span className="truncate text-xs">{user.email}</span>
         </div>
-        <ChevronUp className="opacity-50 size-5" />
+        <ChevronUp className="size-5 opacity-50" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
@@ -54,7 +55,7 @@ export async function NavUser() {
               width={50}
               height={50}
               alt="logo"
-              className="rounded-full size-8 object-cover"
+              className="size-8 rounded-full object-cover"
             />
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-semibold">{user.name}</span>

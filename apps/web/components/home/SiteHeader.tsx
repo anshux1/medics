@@ -1,17 +1,17 @@
 import Link from "next/link";
-import { Button } from "@workspace/ui/components/button";
-import ThemeToggle from "../ThemeToggle";
-import { auth, signIn, signOut } from "@/lib/auth";
 
+import { auth, signIn, signOut } from "@/lib/auth";
 import CheckOnboarding from "@/components/check-onboarding";
+import ThemeToggle from "@/components/ThemeToggle";
+import { Button } from "@workspace/ui/components/button";
 
 export async function SiteHeader() {
   const session = await auth();
   return (
-    <header className="container sticky top-0 backdrop-blur-xl z-40 flex h-16 items-center justify-between py-8 px-6">
+    <header className="container sticky top-0 z-40 flex h-16 items-center justify-between px-6 py-8 backdrop-blur-xl">
       <div className="flex items-center space-x-2">
         <Link href="/" className="flex items-center space-x-2">
-          <div className="bg-primary text-primary-foreground size-8 rounded flex items-center justify-center font-bold">
+          <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded font-bold">
             M
           </div>
           <span className="font-semibold">exxam.io</span>

@@ -1,5 +1,7 @@
 "use client";
+
 import { motion } from "framer-motion";
+
 import { cn } from "@workspace/ui/lib/utils";
 
 interface BlurIntProps {

@@ -2,6 +2,7 @@
 
 import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
+
 import { cn } from "@workspace/ui/lib/utils";
 
 interface WordFadeInProps {
