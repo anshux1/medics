@@ -1,19 +1,11 @@
-import { AudioWaveform, Command } from "lucide-react";
 import { SidebarNavItem, TeamsItem, User } from "types/sidebar";
 
 export interface SidebarConfig {
-  user: User;
   teams: TeamsItem[];
   sidebarNav: SidebarNavItem[];
 }
 
 export const SidebarConfig: SidebarConfig = {
-  user: {
-    name: "Ansh",
-    email: "anshukrsingh11@gmail.com",
-    image:
-      "https://prepmedics.blob.core.windows.net/prepmedics/IMG-20210730-WA0004.jpg",
-  },
   teams: [
     {
       name: "Acme Inc",

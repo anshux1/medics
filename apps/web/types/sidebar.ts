@@ -4,12 +4,6 @@ export interface NavItem {
   disabled?: boolean;
 }
 
-export interface User {
-  name: string;
-  email: string;
-  image: string;
-}
-
 export interface TeamsItem {
   name: string;
   logo: string;
@@ -20,4 +14,4 @@ export interface NavItemWithChildren extends NavItem {
   items?: NavItemWithChildren[];
 }
 
-export interface SidebarNavItem extends NavItemWithChildren {}
+export interface SidebarNavItem extends NavItemWithChildren { }

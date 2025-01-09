@@ -31,11 +31,7 @@ export async function SiteHeader() {
           <form
             action={async () => {
               "use server";
-              try {
-                await signIn("google");
-              } catch (error) {
-                throw error; // Rethrow all other errors
-              }
+              await signIn("google", {});
             }}
           >
             <Button variant="outline">Sign in</Button>

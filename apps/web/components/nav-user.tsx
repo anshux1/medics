@@ -1,5 +1,3 @@
-"use client";
-
 import {
   BadgeCheck,
   Bell,
@@ -17,16 +15,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import { User } from "types/sidebar";
 import Image from "next/image";
+import { auth, signOut } from "@/lib/auth";
 
-export function NavUser({ user }: { user: User }) {
+export async function NavUser() {
+  const user = (await auth())?.user;
+  if (!user) {
+    return null;
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-2 w-11/12 rounded-md hover:bg-accent items-center flex px-3 py-3 gap-3">
         <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
           <Image
-            src={user.image}
+            src={user.image as string}
             width={50}
             height={50}
             alt="logo"
@@ -48,7 +50,7 @@ export function NavUser({ user }: { user: User }) {
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Image
-              src={user.image}
+              src={user.image as string}
               width={50}
               height={50}
               alt="logo"
@@ -83,7 +85,14 @@ export function NavUser({ user }: { user: User }) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={async () => {
+            "use server";
+            await signOut({
+              redirectTo: "/",
+            });
+          }}
+        >
           <LogOut />
           Log out
         </DropdownMenuItem>

@@ -16,7 +16,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         data: {
           emailVerified: new Date(),
         },
-      })
+      });
     },
   },
   callbacks: {

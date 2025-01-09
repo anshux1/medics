@@ -14,7 +14,7 @@ export default function layout({ children }: { children: ReactNode }) {
           <div className="no-scrollbar h-5/6 overflow-auto pt-2 pb-8 pr-4 px-2 lg:pt-2 lg:pb-8">
             <SideBar config={SidebarConfig} />
           </div>
-          <NavUser user={SidebarConfig.user} />
+          <NavUser />
         </aside>
         {children}
       </div>
