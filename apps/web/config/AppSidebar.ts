@@ -1,4 +1,4 @@
-import { SidebarNavItem, TeamsItem, User } from "types/sidebar";
+import { SidebarNavItem, TeamsItem } from "types/sidebar";
 
 export interface SidebarConfig {
   teams: TeamsItem[];
