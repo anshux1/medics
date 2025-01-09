@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export default function ThemeToggle() {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, theme } = useTheme();
 
   return (
     <div>
@@ -13,7 +13,9 @@ export default function ThemeToggle() {
         variant="outline"
         className="group rounded-full size-9 data-[state=on]:bg-transparent data-[state=on]:hover:bg-muted"
         pressed={theme === "light"}
-        onPressedChange={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+        onPressedChange={() =>
+          setTheme((prev) => (prev === "dark" ? "light" : "dark"))
+        }
         aria-label={`Switch mode`}
       >
         <Moon

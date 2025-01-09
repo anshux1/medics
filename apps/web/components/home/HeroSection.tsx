@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Button } from "@workspace/ui/components/button"
-import { InteractiveGridPattern } from "@workspace/ui/components/interactive-grid-pattern"
-import { cn } from "@workspace/ui/lib/utils"
+import Link from "next/link";
+import { Button } from "@workspace/ui/components/button";
+import { InteractiveGridPattern } from "@workspace/ui/components/interactive-grid-pattern";
+import { cn } from "@workspace/ui/lib/utils";
 
 export function HeroSection() {
   return (
@@ -18,20 +18,17 @@ export function HeroSection() {
             An AI-powered solution for online exam challenges.
           </h1>
           <p className="mx-auto max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-            This platform is optimized for educators and students, offering efficiency, accuracy,
-            and user-friendliness, making it ideal for the digital era.
+            This platform is optimized for educators and students, offering
+            efficiency, accuracy, and user-friendliness, making it ideal for the
+            digital era.
           </p>
         </div>
         <div className="flex flex-col gap-4 min-[400px]:flex-row justify-center z-10">
           <Button size="lg" asChild>
-            <Link href="/signup">
-              Sign up for free
-            </Link>
+            <Link href="/signup">Sign up for free</Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href="/dashboard">
-              See Exxam.io in action
-            </Link>
+            <Link href="/dashboard">See Exxam.io in action</Link>
           </Button>
         </div>
       </div>
@@ -45,6 +42,5 @@ export function HeroSection() {
         squaresClassName="hover:fill-neutral-300 dark:hover:fill-neutral-700"
       />
     </div>
-  )
+  );
 }
-

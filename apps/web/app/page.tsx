@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <div className="w-screen max-w-screen-2xl min-h-svh mx-auto">
       <SiteHeader />
-      <BlurFade inView delay={0.10}>
+      <BlurFade inView delay={0.1}>
         <HeroSection />
       </BlurFade>
     </div>

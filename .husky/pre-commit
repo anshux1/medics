@@ -1,11 +1,8 @@
 echo "Testing, linting, and building the project before commiting!"
 
-turbo format || (
-  echo "Prettier check failed! ❌, Please review the formatting issues above. Run pnpm format:fix to automatically fix them";
-  false;
-)
+pnpm format
 
-turbo format || (
+turbo lint || (
   echo "Lint check failed! ❌, Please review the linting issues above.";
   false;
 )

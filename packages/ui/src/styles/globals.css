@@ -67,3 +67,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@layer utilities {
+  .container-wrapper {
+    @apply min-[1800px]:max-w-[1536px] min-[1800px]:border-x border-border/50 dark:border-border mx-auto w-full;
+  }
+
+  .container {
+    @apply mx-auto max-w-[1536px];
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
