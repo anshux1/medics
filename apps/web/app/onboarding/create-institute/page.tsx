@@ -1,6 +1,6 @@
 import { OnBoardingComfig } from "@/config/OnBoarding";
 import { auth } from "@/lib/auth";
-import CreateInstitute from "@/components/onBoarding/CreateInstitute";
+import { OnboardingCreateInstitute } from "@/components/onBoarding/OnboardingCreateInstitute";
 import { BlurOut } from "@workspace/ui/components/blur-out";
 import { WordFadeIn } from "@workspace/ui/components/word-fade-in";
 
@@ -18,7 +18,7 @@ export default async function Component() {
         {config.description}
       </h3>
       <BlurOut animate="visible">
-        <CreateInstitute />
+        <OnboardingCreateInstitute />
       </BlurOut>
     </div>
   );

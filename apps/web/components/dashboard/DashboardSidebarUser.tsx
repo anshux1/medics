@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import { auth, signOut } from "@/lib/auth";
+import ThemeToggle from "@/components/shared/ThemeToggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
 
-export async function NavUser() {
+export async function DashboardSidebarUser() {
   const user = (await auth())?.user;
   if (!user) {
     return null;
@@ -86,6 +87,9 @@ export async function NavUser() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <ThemeToggle />
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={async () => {
             "use server";

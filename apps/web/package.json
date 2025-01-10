@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
     "@hookform/resolvers": "^3.10.0",
+    "@tanstack/react-table": "^8.20.6",
     "@workspace/database": "workspace:*",
     "@workspace/store": "workspace:*",
     "@workspace/ui": "workspace:*",

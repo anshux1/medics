@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-export default function CheckOnboarding() {
+export function OnboardingCheck() {
   // TODO: FIX THIS COMPONENT
   const session = useSession();
   const user = session.data?.user;

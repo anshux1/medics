@@ -16,7 +16,7 @@ import {
 } from "@workspace/ui/components/form-fields";
 import { useAction } from "@workspace/ui/hooks/useAction";
 
-export default function CreateInstitute() {
+export function OnboardingCreateInstitute() {
   const router = useRouter();
   const form = useForm<InputTypeCreateInstitute>({
     resolver: zodResolver(createInstituteSchema),

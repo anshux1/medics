@@ -4,10 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { SidebarNavItem } from "@/types/sidebar";
-import { type SidebarConfig } from "@/config/AppSidebar";
+import { type DashboardSidebarConfigProps } from "@/config/DashboardSidebarConfig";
 import { cn } from "@workspace/ui/lib/utils";
 
-export function SideBar({ config }: { config: SidebarConfig }) {
+export function DashboardSideBar({
+  config,
+}: {
+  config: DashboardSidebarConfigProps;
+}) {
   const pathname = usePathname();
   const items = config.sidebarNav;
   console.log(items);
@@ -20,7 +24,7 @@ export function SideBar({ config }: { config: SidebarConfig }) {
             {item.title}
           </h4>
           {item?.items?.length && (
-            <SideBarItems items={item.items} pathname={pathname} />
+            <DashboardSideBarItems items={item.items} pathname={pathname} />
           )}
         </div>
       ))}
@@ -28,7 +32,7 @@ export function SideBar({ config }: { config: SidebarConfig }) {
   ) : null;
 }
 
-const SideBarItems = ({
+const DashboardSideBarItems = ({
   items,
   pathname,
 }: {

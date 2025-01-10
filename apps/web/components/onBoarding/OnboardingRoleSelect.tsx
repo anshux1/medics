@@ -25,7 +25,7 @@ import {
 } from "@workspace/ui/components/radio-group";
 import { useAction } from "@workspace/ui/hooks/useAction";
 
-export default function RoleSelectCard() {
+export function OnboardingRoleSelectCard() {
   const items = OnBoardingComfig.step1.items;
   const router = useRouter();
 

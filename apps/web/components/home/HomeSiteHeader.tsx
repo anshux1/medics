@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 import { auth, signIn, signOut } from "@/lib/auth";
-import CheckOnboarding from "@/components/check-onboarding";
-import ThemeToggle from "@/components/ThemeToggle";
+import { OnboardingCheck } from "@/components/onBoarding/OnboardingCheck";
+import ThemeToggle from "@/components/shared/ThemeToggle";
 import { Button } from "@workspace/ui/components/button";
 
-export async function SiteHeader() {
+export async function HomeSiteHeader() {
   const session = await auth();
   return (
     <header className="container sticky top-0 z-40 flex h-16 items-center justify-between px-6 py-8 backdrop-blur-xl">
@@ -19,7 +19,7 @@ export async function SiteHeader() {
       </div>
       <div className="flex items-center space-x-6">
         <ThemeToggle />
-        <CheckOnboarding />
+        <OnboardingCheck />
         {session ? (
           <form
             action={async () => {

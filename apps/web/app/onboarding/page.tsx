@@ -1,5 +1,5 @@
 import { OnBoardingComfig } from "@/config/OnBoarding";
-import RoleSelectCard from "@/components/onBoarding/RoleSelect";
+import { OnboardingRoleSelectCard } from "@/components/onBoarding/OnboardingRoleSelect";
 import { BlurOut } from "@workspace/ui/components/blur-out";
 import { WordFadeIn } from "@workspace/ui/components/word-fade-in";
 
@@ -15,7 +15,7 @@ export default function Component() {
         {config.description}
       </h3>
       <BlurOut animate={"visible"}>
-        <RoleSelectCard />
+        <OnboardingRoleSelectCard />
       </BlurOut>
     </div>
   );

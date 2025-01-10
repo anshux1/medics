@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
 
+// TODO: CHANGE THE NAMES AND VALUES OF THE PROPS ACCORDING TO YOUR NEEDS
 export default function OrgSwitcher({ teams }: { teams: TeamsItem[] }) {
   const [activeTeam, setActiveTeam] = useState(teams[0]);
   return (

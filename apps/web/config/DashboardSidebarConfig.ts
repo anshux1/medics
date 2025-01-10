@@ -1,11 +1,11 @@
 import { SidebarNavItem, TeamsItem } from "types/sidebar";
 
-export interface SidebarConfig {
+export interface DashboardSidebarConfigProps {
   teams: TeamsItem[];
   sidebarNav: SidebarNavItem[];
 }
 
-export const SidebarConfig: SidebarConfig = {
+export const DashboardSidebarConfig: DashboardSidebarConfigProps = {
   teams: [
     {
       name: "Acme Inc",
