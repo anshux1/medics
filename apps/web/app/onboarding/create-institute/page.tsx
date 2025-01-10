@@ -1,10 +1,13 @@
 import { OnBoardingComfig } from "@/config/OnBoarding";
-import RoleSelectCard from "@/components/onBoarding/RoleSelect";
+import { auth } from "@/lib/auth";
+import CreateInstitute from "@/components/onBoarding/CreateInstitute";
 import { BlurOut } from "@workspace/ui/components/blur-out";
 import { WordFadeIn } from "@workspace/ui/components/word-fade-in";
 
-export default function Component() {
-  const config = OnBoardingComfig.step1;
+export default async function Component() {
+  const config = OnBoardingComfig.step2;
+  const session = await auth();
+  console.log(session);
   return (
     <div className="p-10">
       <WordFadeIn
@@ -14,8 +17,8 @@ export default function Component() {
       <h3 className="w-11/12 leading-7 opacity-80 md:w-3/5 [&:not(:first-child)]:mt-6">
         {config.description}
       </h3>
-      <BlurOut animate={"visible"}>
-        <RoleSelectCard />
+      <BlurOut animate="visible">
+        <CreateInstitute />
       </BlurOut>
     </div>
   );

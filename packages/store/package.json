@@ -1,0 +1,12 @@
+{
+  "name": "@workspace/store",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@workspace/typescript-config": "workspace:*"
+  },
+  "dependencies": {
+    "jotai": "^2.11.0"
+  }
+}

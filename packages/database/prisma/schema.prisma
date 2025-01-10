@@ -62,5 +62,5 @@ model Institute {
 
 enum Role {
   STUDENT
-  INSTRUCTOR
+  INSTITUTE
 }

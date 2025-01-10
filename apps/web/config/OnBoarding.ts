@@ -1,3 +1,5 @@
+import { Role } from "@workspace/database";
+
 export const OnBoardingComfig = {
   step1: {
     heading: "Shape the Future of Education",
@@ -5,14 +7,14 @@ export const OnBoardingComfig = {
       "Institutes can create and manage tests, providing students with valuable learning resources like previous year questions (PYQs) and customized assessments. Students can participate in these tests, evaluate their skills, and gain insights to improve their performance.",
     items: [
       {
-        value: "1",
+        value: Role.INSTITUTE,
         label: "Institute",
         Icon: "https://prepmedics.blob.core.windows.net/prepmedics/college-svgrepo-com.svg",
         description:
           "Create and manage tests for students. Provide additional resources, including previous year questions to enhance learning and evaluation.",
       },
       {
-        value: "2",
+        value: Role.STUDENT,
         label: "Student",
         Icon: "https://prepmedics.blob.core.windows.net/prepmedics/paying-for-college-round-svgrepo-com.svg",
         description:
