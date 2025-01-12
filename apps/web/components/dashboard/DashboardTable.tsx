@@ -27,11 +27,11 @@ interface DataTableProps<TData, TValue> {
 
 export const DashboardTable = () => {
   return (
-    <div className="px-7 py-5">
+    <div className="px-3 py-2 md:px-5 md:py-4">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="font-semibold">Exam History </h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Start Create Exam 71 Explore our tools that you can use to generate
             blog posts, analyze SERP and more
           </p>
