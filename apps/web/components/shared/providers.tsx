@@ -15,7 +15,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableColorScheme
     >
       <SessionProvider>{children}</SessionProvider>
-      <Toaster richColors position="bottom-right" />
+      <Toaster richColors position="top-center" />
     </NextThemesProvider>
   );
 }

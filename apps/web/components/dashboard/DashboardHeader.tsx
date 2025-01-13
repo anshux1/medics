@@ -1,11 +1,14 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { auth } from "@/lib/auth";
-import { Button } from "@workspace/ui/components/button";
-import { JoinExam } from "./DashboardJoinExamDialog";
 
-export const DashboardHeader = async () => {
+export const DashboardHeader = async ({
+  children,
+}: {
+  children?: ReactNode;
+}) => {
   const user = (await auth())?.user;
+  console.log("user: ", user);
   return (
     <div className="flex h-20 items-center justify-between border-b px-7">
       <div className="">
@@ -15,7 +18,7 @@ export const DashboardHeader = async () => {
           <span className="text-primary font-medium">test.medicss.in</span>
         </p>
       </div>
-      {user?.role !== "STUDENT" ? <JoinExam /> : <Button>Create Exam</Button>}
+      {children}
     </div>
   );
 };

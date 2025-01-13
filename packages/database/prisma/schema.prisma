@@ -60,6 +60,82 @@ model Institute {
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Class {
+  id        String    @id @default(cuid())
+  className String
+  Chapter   Chapter[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subject {
+  id                        String    @id @default(cuid())
+  subjectName               String
+  questionCount             Int       @default(0)
+  position                  Int
+  isImportanceAvailable     Boolean
+  isSyllabusFilterAvailable Boolean
+  isVisible                 Boolean
+  Unit                      Unit[]
+  Chapter                   Chapter[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Unit {
+  id            String    @id @default(cuid())
+  unitName      String
+  totalChapters Int
+  isVisible     Boolean
+  subjectId     String
+  subject       Subject   @relation(fields: [subjectId], references: [id])
+  chapters      Chapter[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([subjectId])
+}
+
+model Chapter {
+  id                             String  @id @default(cuid())
+  chapterName                    String
+  importance                     String
+  priority                       Int
+  order                          Int
+  classId                        String
+  class                          Class   @relation(fields: [classId], references: [id])
+  syllabusCategory               String
+  isTopicSyllabusFilterAvailable Boolean
+  questionCount                  Int
+  isVisible                      Boolean
+  unitId                         String
+  unit                           Unit    @relation(fields: [unitId], references: [id])
+  subjectId                      String
+  subject                        Subject @relation(fields: [subjectId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Topics    Topics[]
+}
+
+model Topics {
+  id               String  @id @default(cuid())
+  topicName        String
+  isVisible        Boolean
+  position         Int
+  isMustDo         Boolean
+  syllabusCategory String
+  noOfQuestions    Int
+  chapterId        String
+  chapter          Chapter @relation(fields: [chapterId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum Role {
   STUDENT
   INSTITUTE

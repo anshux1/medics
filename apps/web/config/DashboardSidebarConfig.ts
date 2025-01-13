@@ -1,28 +1,10 @@
 import { SidebarNavItem, TeamsItem } from "types/sidebar";
 
 export interface DashboardSidebarConfigProps {
-  teams: TeamsItem[];
   sidebarNav: SidebarNavItem[];
 }
 
 export const DashboardSidebarConfig: DashboardSidebarConfigProps = {
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: "https://prepmedics.blob.core.windows.net/prepmedics/nta.svg",
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: "https://prepmedics.blob.core.windows.net/prepmedics/nta.svg",
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: "https://prepmedics.blob.core.windows.net/prepmedics/nta.svg",
-      plan: "Free",
-    },
-  ],
   sidebarNav: [
     {
       title: "Main",
@@ -59,8 +41,12 @@ export const DashboardSidebarConfig: DashboardSidebarConfigProps = {
       ],
     },
     {
-      title: "Other",
+      title: "Settings",
       items: [
+        {
+          title: "Manage Institutes",
+          href: "/dashboard/manage-institutes",
+        },
         {
           title: "Integration",
           href: "/integration",
