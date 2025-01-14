@@ -51,7 +51,7 @@ export function InstituteDeleteDialog({
   return (
     <DialogDrawer>
       <DialogDrawerTrigger className="bg-destructive text-destructive-foreground hover:bg-destructive/90 ring-offset-background inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors">
-        Delete project
+        Delete
       </DialogDrawerTrigger>
       <DialogDrawerContent className="md:max-w-sm">
         <div
@@ -66,7 +66,7 @@ export function InstituteDeleteDialog({
           </DialogDrawerTitle>
           <DialogDrawerDescription className="text-center md:text-start">
             This action cannot be undone. To confirm, please enter the institute
-            name <span className="text-foreground">{instituteName}</span>.
+            name <span className="text-foreground">{instituteName}</span>
           </DialogDrawerDescription>
         </DialogDrawerHeader>
         <DialogDrawerBody className="mx-auto w-full max-w-sm">
@@ -80,7 +80,6 @@ export function InstituteDeleteDialog({
               onChange={(e) => setInputValue(e.target.value)}
             />
           </div>
-          <Button onClick={() => toast.error("this is error")}>toast</Button>
         </DialogDrawerBody>
         <DialogDrawerFooter className="mx-auto grid w-full max-w-sm grid-cols-2">
           <DialogDrawerClose asChild>

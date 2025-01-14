@@ -22,6 +22,10 @@ export const DashboardSidebarConfig: DashboardSidebarConfigProps = {
           href: "/results",
         },
         {
+          title: "Create Test",
+          href: "/create-test",
+        },
+        {
           title: "Schedule",
           href: "/schedule",
         },
@@ -45,7 +49,7 @@ export const DashboardSidebarConfig: DashboardSidebarConfigProps = {
       items: [
         {
           title: "Manage Institutes",
-          href: "/dashboard/manage-institutes",
+          href: "/manage-institutes",
         },
         {
           title: "Integration",

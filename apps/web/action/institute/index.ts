@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { auth } from "@/lib/auth";
 import { createAction } from "@workspace/ui/lib/createAction";
 import { prisma } from "@workspace/database";
@@ -46,6 +48,7 @@ const deleteInstituteHandler = async (
         name: true,
       },
     });
+    revalidatePath("/dashboard/manage-institutes");
     return { data: result };
   } catch {
     return { error: "Failed to create institute" };

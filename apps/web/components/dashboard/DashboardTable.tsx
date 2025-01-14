@@ -27,7 +27,7 @@ interface DataTableProps<TData, TValue> {
 
 export const DashboardTable = () => {
   return (
-    <div className="px-3 py-2 md:px-5 md:py-4">
+    <>
       <div className="flex items-center justify-between">
         <div>
           <h2 className="font-semibold">Exam History </h2>
@@ -44,7 +44,7 @@ export const DashboardTable = () => {
         </Link>
       </div>
       <DataTable columns={columns} data={examsData} />
-    </div>
+    </>
   );
 };
 

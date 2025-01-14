@@ -12,7 +12,7 @@ export default async function page() {
       <DashboardHeader>
         {user?.role === "STUDENT" ? <JoinExam /> : <Button>Create Exam</Button>}
       </DashboardHeader>
-      <div className="no-scrollbar h-[calc(100vh-5rem)] overflow-auto px-2 pb-8 pr-4 pt-2 lg:pb-8 lg:pt-2">
+      <div className="no-scrollbar h-[calc(100vh-5rem)] overflow-auto p-4 md:p-7">
         <DashboardAnalytics />
         <DashboardTable />
       </div>

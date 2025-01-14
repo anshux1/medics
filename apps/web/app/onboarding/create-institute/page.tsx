@@ -18,7 +18,7 @@ export default async function Component() {
         {config.description}
       </h3>
       <BlurOut animate="visible">
-        <OnboardingCreateInstitute />
+        <OnboardingCreateInstitute navigateLink="/dashboard" />
       </BlurOut>
     </div>
   );

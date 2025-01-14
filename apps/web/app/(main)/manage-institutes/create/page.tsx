@@ -12,16 +12,16 @@ export default async function Component() {
   return (
     <div>
       <DashboardHeader />
-      <div className="p-10">
+      <div className="p-4 md:p-7">
         <WordFadeIn
           words={config.heading}
-          className="scroll-m-20 text-start text-4xl font-extrabold tracking-tight lg:text-5xl"
+          className="scroll-m-20 text-start text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl"
         />
-        <h3 className="w-11/12 leading-7 opacity-80 md:w-3/5 [&:not(:first-child)]:mt-6">
+        <h3 className="w-11/12 leading-7 opacity-80 md:w-3/5 [&:not(:first-child)]:mt-3 md:[&:not(:first-child)]:mt-6">
           {config.description}
         </h3>
         <BlurOut animate="visible">
-          <OnboardingCreateInstitute />
+          <OnboardingCreateInstitute navigateLink="/manage-institutes" />
         </BlurOut>
       </div>
     </div>

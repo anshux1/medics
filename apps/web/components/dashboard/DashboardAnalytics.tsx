@@ -26,7 +26,7 @@ const Data = [
 
 export const DashboardAnalytics = () => {
   return (
-    <div className="px-3 py-2 md:px-5 md:py-4">
+    <>
       <h2 className="font-semibold">Dashboard</h2>
       <p className="text-muted-foreground">
         Overview of your exam, student and other resources.
@@ -36,7 +36,7 @@ export const DashboardAnalytics = () => {
           <DashboardAnalyticsCard key={index} data={item} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

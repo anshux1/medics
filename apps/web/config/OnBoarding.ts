@@ -23,7 +23,7 @@ export const OnBoardingComfig = {
     ],
   },
   step2: {
-    heading: "Create Your Institute Profile",
+    heading: "Create new Institute",
     description:
       "Provide the details of your institute to start creating and managing tests for your students. This information will help you set up your institute and organize your test content efficiently.",
   },

@@ -12,14 +12,14 @@ export default async function page() {
   return (
     <div>
       <DashboardHeader>
-        <Link href="/dashboard/manage-institutes/create">
+        <Link href="/manage-institutes/create">
           <Button>
             <PlusCircle className="mr-2 h-4 w-4" />
             Create Institute
           </Button>
         </Link>
       </DashboardHeader>
-      <div className="px-3 py-2 md:px-10 md:py-7">
+      <div className="p-4 md:p-7">
         <div className="flex justify-between">
           <div>
             <h2 className="font-semibold">Manage Institutes</h2>

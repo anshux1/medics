@@ -16,7 +16,11 @@ import {
 } from "@workspace/ui/components/form-fields";
 import { useAction } from "@workspace/ui/hooks/useAction";
 
-export function OnboardingCreateInstitute() {
+export function OnboardingCreateInstitute({
+  navigateLink,
+}: {
+  navigateLink: string;
+}) {
   const router = useRouter();
   const form = useForm<InputTypeCreateInstitute>({
     resolver: zodResolver(createInstituteSchema),
@@ -31,7 +35,7 @@ export function OnboardingCreateInstitute() {
   const { isLoading, execute } = useAction(createInstitute, {
     onSuccess: () => {
       toast.success("Institute created successfully");
-      router.replace("/dashboard");
+      router.replace(navigateLink);
     },
     onError(error) {
       toast.error(error);
@@ -45,7 +49,7 @@ export function OnboardingCreateInstitute() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={`my-10 max-w-xl space-y-4`}
+        className={`my-5 max-w-xl space-y-4 md:my-10`}
       >
         <InputField
           control={form.control}
