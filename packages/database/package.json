@@ -4,11 +4,12 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./bio": "./src/bio.ts"
+    "./data": "./src/data.ts"
   },
   "scripts": {
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx src/seed.ts",
+    "db:seedSyllabus": "tsx src/seedSyllabus.ts",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
     "dev": "tsup src/* --watch",
