@@ -16,7 +16,10 @@ import {
 
 // TODO: CHANGE THE NAMES AND VALUES OF THE PROPS ACCORDING TO YOUR NEEDS
 export default function OrgSwitcher({ institute }: { institute: Institute[] }) {
-  const [activeInstitute, setActiveInstitute] = useState(institute.at(0));
+  const instituteId = localStorage.getItem("selectedInstitute");
+  const [activeInstitute, setActiveInstitute] = useState(
+    institute.find((item) => item.id === instituteId) || institute.at(0),
+  );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="hover:bg-accent m-2 flex w-11/12 items-center gap-3 rounded-md px-3 py-3">
@@ -43,7 +46,10 @@ export default function OrgSwitcher({ institute }: { institute: Institute[] }) {
         {institute.map((institute, index) => (
           <DropdownMenuItem
             key={index}
-            onClick={() => setActiveInstitute(institute)}
+            onClick={() => {
+              localStorage.setItem("selectedInstitute", institute.id);
+              setActiveInstitute(institute);
+            }}
             className="gap-2 p-2"
           >
             {institute.name}

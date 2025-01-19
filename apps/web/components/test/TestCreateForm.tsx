@@ -1,12 +1,22 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createTest } from "@/action/test";
 import { createTestSchema } from "@/action/test/schema";
 import { InputTypeCreateTest } from "@/action/test/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronDown } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
+import {
+  testDifficulty,
+  testNoOfQuestions,
+  TestSubjectsProps,
+  TestSyllabusProps,
+  testTimeLimit,
+} from "@/config/constants";
 import { Button } from "@workspace/ui/components/button";
 import { Checkbox } from "@workspace/ui/components/checkbox";
 import {
@@ -28,67 +38,34 @@ import {
   RadioGroupItem,
 } from "@workspace/ui/components/radio-group";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
-
-const noOfQuestions = [
-  { label: "20 Ques", value: 20 },
-  { label: "50 Ques", value: 50 },
-  { label: "60 Ques", value: 60 },
-  { label: "80 Ques", value: 80 },
-  { label: "100 Ques", value: 100 },
-  { label: "120 Ques", value: 120 },
-  { label: "150 Ques", value: 150 },
-  { label: "180 Ques", value: 180 },
-];
-
-const time = [
-  { label: "20 min", value: 20 },
-  { label: "50 min", value: 50 },
-  { label: "60 min", value: 60 },
-  { label: "80 min", value: 80 },
-  { label: "100 min", value: 100 },
-  { label: "120 min", value: 120 },
-  { label: "150 min", value: 150 },
-  { label: "180 min", value: 180 },
-];
-
-interface Subjects {
-  id: string;
-  subjectName: string;
-}
-
-interface Syllabus {
-  id: string;
-  unitName: string;
-  totalChapters: number;
-  subjectId: string;
-  chapters: {
-    id: string;
-    chapterName: string;
-  }[];
-}
+import { useAction } from "@workspace/ui/hooks/useAction";
 
 interface TestCreateFormProps {
-  subjects: Subjects[];
-  units: Syllabus[];
+  subjects: TestSubjectsProps[];
+  units: TestSyllabusProps[];
 }
 
 export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState<{ [key: number]: boolean }>({});
   const [filteredData, setFilteredData] = useState<
     {
       id: string;
       subjectName: string;
-      units: Syllabus[];
+      units: TestSyllabusProps[];
     }[]
   >([]);
+
   const form = useForm<InputTypeCreateTest>({
     resolver: zodResolver(createTestSchema),
     defaultValues: {
       name: "",
-      noOfQuestions: 5,
+      noOfQuestions: 1,
       chatpers: [],
       subjects: [],
-      timeLimit: 0,
+      timeLimit: 1,
+      difficulty: 1,
+      instituteId: localStorage.getItem("selectedInstitute") || "",
     },
   });
 
@@ -107,21 +84,31 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
         return null;
       })
       .filter((data) => data !== null) as {
-        id: string;
-        subjectName: string;
-        units: Syllabus[];
-      }[];
+      id: string;
+      subjectName: string;
+      units: TestSyllabusProps[];
+    }[];
 
     setFilteredData(newFilteredData);
   }, [selectedSubjects, subjects, units]);
 
+  const { execute, isLoading } = useAction(createTest, {
+    onSuccess: (data) => {
+      toast.success("Test created successfully");
+      router.push(`tests/${data.id}`);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
   const onSubmit = (values: InputTypeCreateTest) => {
+    execute(values);
     console.log(values);
   };
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit, (error) => console.log(error))}
         className="mt-5 grid gap-3 lg:grid-cols-2"
       >
         <div className="space-y-4">
@@ -129,7 +116,7 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
             control={form.control}
             name="name"
             label="Name"
-            className="w-full md:h-12 md:text-lg"
+            className="w-full"
             placeholder="Like Phy June Test.."
           />
           <FormField
@@ -143,40 +130,77 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                     Select the items you want to display in the sidebar.
                   </FormDescription>
                 </div>
-                {subjects.map((item) => (
-                  <FormField
-                    key={item.id}
-                    control={form.control}
-                    name="subjects"
-                    render={({ field }) => {
-                      return (
-                        <FormItem
-                          key={item.id}
-                          className="flex flex-row items-start space-x-3 space-y-0"
-                        >
-                          <FormLabel className="border-input has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary has-[[data-state=checked]]:text-primary-foreground has-[:focus-visible]:outline-ring/70 relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border px-4 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2">
-                            <FormControl>
-                              <Checkbox
-                                className="sr-only after:absolute after:inset-0"
-                                checked={field.value?.includes(item.id)}
-                                onCheckedChange={(checked) => {
-                                  return checked
-                                    ? field.onChange([...field.value, item.id])
-                                    : field.onChange(
-                                      field.value?.filter(
-                                        (value) => value !== item.id,
-                                      ),
-                                    );
-                                }}
-                              />
-                            </FormControl>
-                            {item.subjectName}
-                          </FormLabel>
-                        </FormItem>
-                      );
-                    }}
-                  />
-                ))}
+                <div className="flex gap-2">
+                  {subjects.map((item) => (
+                    <FormField
+                      key={item.id}
+                      control={form.control}
+                      name="subjects"
+                      render={({ field }) => {
+                        return (
+                          <FormItem
+                            key={item.id}
+                            className="flex flex-row items-start space-x-3 space-y-0"
+                          >
+                            <FormLabel className="border-input has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary has-[[data-state=checked]]:text-primary-foreground has-[:focus-visible]:outline-ring/70 relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border px-4 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2">
+                              <FormControl>
+                                <Checkbox
+                                  className="sr-only after:absolute after:inset-0"
+                                  checked={field.value?.includes(item.id)}
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([
+                                          ...field.value,
+                                          item.id,
+                                        ])
+                                      : field.onChange(
+                                          field.value?.filter(
+                                            (value) => value !== item.id,
+                                          ),
+                                        );
+                                  }}
+                                />
+                              </FormControl>
+                              {item.subjectName}
+                            </FormLabel>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  ))}
+                </div>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="difficulty"
+            render={({ field }) => (
+              <FormItem className="max-w-lg space-y-1.5">
+                <FormLabel>Level</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={(value) => field.onChange(Number(value))}
+                    defaultValue={field.value.toString()}
+                    className="grid grid-cols-3 gap-2"
+                  >
+                    {testDifficulty.map((item, index) => (
+                      <FormItem key={index}>
+                        <FormLabel className="border-input has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent has-[:focus-visible]:outline-ring/70 relative flex cursor-pointer flex-col items-center gap-3 rounded-lg border px-2 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2">
+                          <FormControl>
+                            <RadioGroupItem
+                              className="sr-only after:absolute after:inset-0"
+                              value={item.value.toString()}
+                            />
+                          </FormControl>
+                          <p className="text-foreground text-sm font-medium leading-none">
+                            {item.label}
+                          </p>
+                        </FormLabel>
+                      </FormItem>
+                    ))}
+                  </RadioGroup>
+                </FormControl>
               </FormItem>
             )}
           />
@@ -192,7 +216,7 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                     defaultValue={field.value.toString()}
                     className="grid grid-cols-3 gap-2"
                   >
-                    {noOfQuestions.map((item, index) => (
+                    {testNoOfQuestions.map((item, index) => (
                       <FormItem key={index}>
                         <FormLabel className="border-input has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent has-[:focus-visible]:outline-ring/70 relative flex cursor-pointer flex-col items-center gap-3 rounded-lg border px-2 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2">
                           <FormControl>
@@ -224,7 +248,7 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                     defaultValue={field.value.toString()}
                     className="grid grid-cols-3 gap-2"
                   >
-                    {time.map((item, index) => (
+                    {testTimeLimit.map((item, index) => (
                       <FormItem key={index}>
                         <FormLabel className="border-input has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent has-[:focus-visible]:outline-ring/70 relative flex cursor-pointer flex-col items-center gap-3 rounded-lg border px-2 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2">
                           <FormControl>
@@ -245,14 +269,16 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
             )}
           />
         </div>
-        <div className="max-w-lg space-y-1">
+        <div className="max-w-lg space-y-1 overflow-auto lg:h-[62vh]">
           {filteredData.length !== 0 && (
             <p className="-mt-1 text-sm">Select chapters</p>
           )}
           {filteredData.map((data, index) => (
             <Collapsible
               key={index}
-              onOpenChange={(value) => setMenuOpen(value)}
+              onOpenChange={(value) =>
+                setMenuOpen((prev) => ({ ...prev, [index]: value }))
+              }
               className="bg-secondary/30 rounded-md border px-4 py-3"
             >
               <div className="flex items-center gap-3">
@@ -260,23 +286,32 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                   control={form.control}
                   name="chatpers"
                   render={({ field }) => {
+                    const allChapters = data.units.flatMap(
+                      (unit) => unit.chapters,
+                    );
+                    const isChecked = allChapters.every((item) =>
+                      field.value?.includes(item.id),
+                    );
                     return (
                       <FormItem className="flex items-start">
                         <FormControl>
                           <Checkbox
-                            checked={data.units.every((unit) =>
-                              unit.chapters.every((item) =>
-                                field.value?.includes(item.id),
-                              ),
-                            )}
+                            checked={isChecked}
                             onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange(
-                                  data.units.flatMap((unit) =>
-                                    unit.chapters.map((item) => item.id),
-                                  ),
-                                )
-                                : field.onChange([]);
+                              const newValue = checked
+                                ? [
+                                    ...new Set([
+                                      ...field.value,
+                                      ...allChapters.map((item) => item.id),
+                                    ]),
+                                  ]
+                                : field.value.filter(
+                                    (value) =>
+                                      !allChapters
+                                        .map((item) => item.id)
+                                        .includes(value),
+                                  );
+                              field.onChange(newValue);
                             }}
                           />
                         </FormControl>
@@ -294,7 +329,7 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                   />
                 </CollapsibleTrigger>
               </div>
-              <ScrollArea className={`${menuOpen ? "mt-3 h-72" : ""}`}>
+              <ScrollArea className={`${menuOpen[index] ? "mt-3 h-auto" : ""}`}>
                 <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down mr-3 overflow-hidden rounded-md text-sm opacity-95 transition-all duration-200">
                   {data.units.map((unit) => (
                     <Collapsible
@@ -314,21 +349,22 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                                       field.value?.includes(item.id),
                                     )}
                                     onCheckedChange={(checked) => {
-                                      return checked
-                                        ? field.onChange([
-                                          ...field.value,
-                                          ...unit.chapters.map(
-                                            (item) => item.id,
-                                          ),
-                                        ])
-                                        : field.onChange(
-                                          field.value?.filter(
+                                      const newValue = checked
+                                        ? [
+                                            ...new Set([
+                                              ...field.value,
+                                              ...unit.chapters.map(
+                                                (item) => item.id,
+                                              ),
+                                            ]),
+                                          ]
+                                        : field.value.filter(
                                             (value) =>
                                               !unit.chapters
                                                 .map((item) => item.id)
                                                 .includes(value),
-                                          ),
-                                        );
+                                          );
+                                      field.onChange(newValue);
                                     }}
                                   />
                                 </FormControl>
@@ -351,7 +387,8 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                           {unit.chapters.map((item, index) => (
                             <div
                               key={index}
-                              className="flex items-center gap-3">
+                              className="flex items-center gap-3"
+                            >
                               <FormField
                                 control={form.control}
                                 name="chatpers"
@@ -364,17 +401,17 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
                                             item.id,
                                           )}
                                           onCheckedChange={(checked) => {
-                                            return checked
-                                              ? field.onChange([
-                                                ...field.value,
-                                                item.id,
-                                              ])
-                                              : field.onChange(
-                                                field.value?.filter(
-                                                  (value) =>
-                                                    value !== item.id,
-                                                ),
-                                              );
+                                            const newValue = checked
+                                              ? [
+                                                  ...new Set([
+                                                    ...field.value,
+                                                    item.id,
+                                                  ]),
+                                                ]
+                                              : field.value.filter(
+                                                  (value) => value !== item.id,
+                                                );
+                                            field.onChange(newValue);
                                           }}
                                         />
                                       </FormControl>
@@ -394,7 +431,9 @@ export const TestCreateForm = ({ subjects, units }: TestCreateFormProps) => {
             </Collapsible>
           ))}
         </div>
-        <Button className="mt-10 w-fit">Create Test</Button>
+        <Button disabled={isLoading} className="mt-10 w-fit">
+          Create Test
+        </Button>
       </form>
     </Form>
   );
