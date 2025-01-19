@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { auth, signIn, signOut } from "@/lib/auth";
-import { OnboardingCheck } from "@/components/onBoarding/OnboardingCheck";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { Button } from "@workspace/ui/components/button";
 
@@ -19,7 +18,6 @@ export async function HomeSiteHeader() {
       </div>
       <div className="flex items-center space-x-6">
         <ThemeToggle />
-        <OnboardingCheck />
         {session ? (
           <form
             action={async () => {

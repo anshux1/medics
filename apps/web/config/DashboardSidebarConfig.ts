@@ -22,18 +22,18 @@ export const DashboardSidebarConfig: DashboardSidebarConfigProps = {
           href: "/results",
         },
         {
-          title: "Create Test",
-          href: "/create-test",
-        },
-        {
-          title: "Schedule",
-          href: "/schedule",
+          title: "Tests",
+          href: "/tests",
         },
       ],
     },
     {
       title: "Tools",
       items: [
+        {
+          title: "Create Test",
+          href: "/create-test",
+        },
         {
           title: "Find Template",
           href: "/find-template",

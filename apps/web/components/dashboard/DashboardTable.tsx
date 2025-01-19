@@ -1,12 +1,16 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import { TestData } from "@/data/test";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { selectedInstituteAtom } from "@workspace/store";
+import { useAtomValue } from "jotai";
 import { ArrowUpRight } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
@@ -18,14 +22,22 @@ import {
   TableHeader,
   TableRow,
 } from "@workspace/ui/components/table";
-import { columns, examsData } from "./DashboardTableColumns";
+import { columns } from "./DashboardTableColumns";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export const DashboardTable = () => {
+export const DashboardTable = ({ testData }: { testData: TestData[] }) => {
+  const selecctedInstitute = useAtomValue(selectedInstituteAtom);
+  const [filteredData, setFilteredData] = useState<TestData[]>([]);
+  useMemo(() => {
+    const data = testData.filter(
+      (test) => test.instituteId === selecctedInstitute,
+    );
+    setFilteredData(data);
+  }, [selecctedInstitute]);
   return (
     <>
       <div className="flex items-center justify-between">
@@ -36,14 +48,14 @@ export const DashboardTable = () => {
             blog posts, analyze SERP and more
           </p>
         </div>
-        <Link href="test/asdf">
+        <Link href="/tests">
           <Button variant="outline">
             See all
             <ArrowUpRight className="text-muted-foreground size-5" />
           </Button>
         </Link>
       </div>
-      <DataTable columns={columns} data={examsData} />
+      <DataTable columns={columns} data={filteredData} />
     </>
   );
 };

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { selectedInstituteAtom } from "@workspace/store";
+import { useAtom } from "jotai";
 import { Building, ChevronDown, Plus } from "lucide-react";
 
 import { Institute } from "@prisma/client";
@@ -14,12 +15,11 @@ import {
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
 
-// TODO: CHANGE THE NAMES AND VALUES OF THE PROPS ACCORDING TO YOUR NEEDS
 export default function OrgSwitcher({ institute }: { institute: Institute[] }) {
-  const instituteId = localStorage.getItem("selectedInstitute");
-  const [activeInstitute, setActiveInstitute] = useState(
-    institute.find((item) => item.id === instituteId) || institute.at(0),
-  );
+  const [activeInstitute, setActiveInstitute] = useAtom(selectedInstituteAtom);
+  if (!activeInstitute) {
+    setActiveInstitute(institute[0]?.id);
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="hover:bg-accent m-2 flex w-11/12 items-center gap-3 rounded-md px-3 py-3">
@@ -28,9 +28,11 @@ export default function OrgSwitcher({ institute }: { institute: Institute[] }) {
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="truncate font-semibold">
-            {activeInstitute?.name}
+            {institute.find((inst) => inst.id === activeInstitute)?.name}
           </span>
-          <span className="truncate text-xs">{activeInstitute?.city}</span>
+          <span className="truncate text-xs">
+            {institute.find((inst) => inst.id == activeInstitute)?.city}
+          </span>
         </div>
         <ChevronDown className="size-5 opacity-50" />
       </DropdownMenuTrigger>
@@ -47,8 +49,7 @@ export default function OrgSwitcher({ institute }: { institute: Institute[] }) {
           <DropdownMenuItem
             key={index}
             onClick={() => {
-              localStorage.setItem("selectedInstitute", institute.id);
-              setActiveInstitute(institute);
+              setActiveInstitute(institute.id);
             }}
             className="gap-2 p-2"
           >
