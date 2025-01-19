@@ -18,12 +18,12 @@ export const columns: ColumnDef<TestData>[] = [
     header: "No Of questions",
   },
   {
-    accessorKey: "timeLimit",
-    header: "Time  Limit",
-  },
-  {
     accessorKey: "students",
     header: "Students",
+    cell: ({ row }) => {
+      const totalStudents = row.original.students.length;
+      return totalStudents;
+    },
   },
   {
     accessorKey: "difficulty",
@@ -32,9 +32,30 @@ export const columns: ColumnDef<TestData>[] = [
   {
     accessorKey: "chapters",
     header: "Chapters",
+    cell: ({ row }) => {
+      const totalChapters = row.original.chapters.length;
+      return totalChapters;
+    },
   },
   {
     accessorKey: "questions",
     header: "Questions",
+    cell: ({ row }) => {
+      const totalQuestions = row.original.questions.length;
+      return totalQuestions;
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Date",
+    cell: ({ row }) => {
+      const totalQuestions = row.original.createdAt;
+      const formattedDate = new Date(totalQuestions).toLocaleString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      });
+      return formattedDate;
+    },
   },
 ];
